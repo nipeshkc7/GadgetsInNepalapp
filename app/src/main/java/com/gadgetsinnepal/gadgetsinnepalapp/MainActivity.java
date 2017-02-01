@@ -77,83 +77,181 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    String Tag=null;
+    String PrevTag=null;
+    Fragment frag=null;
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        android.app.Fragment f=null;
         android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-        homeFragment frag=null;
-        techNews frag2=null;
 
-        if (id == R.id.nav_camera) {
-//            homeFragment fragment=new homeFragment();
-//            android.support.v4.app.FragmentTransaction fragmentTransaction =
-//                    getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.fragment_container,fragment);
-//            fragmentTransaction.addToBackStack("home").commit();
-            frag= (homeFragment) getSupportFragmentManager().findFragmentByTag("home");
+//        techNews frag2=null;
 
-            if(frag==null){
-                homeFragment fragment=new homeFragment();
-              ft.add(R.id.fragment_container,fragment,"home");
-            //    ft.show(fragment);
-            ft.commit();
-            }else{
-                //ft.replace(R.id.fragment_container,frag,"home");
-                ft.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
-                ft.show(frag);
-                ft.commit();
-                Toast.makeText(getApplicationContext(),"houston",Toast.LENGTH_LONG).show();
-            }
-
-        } else if (id == R.id.nav_gallery) {
-
-//            techNews fragment=new techNews();
-//            android.support.v4.app.FragmentTransaction fragmentTransaction =
-//                    getSupportFragmentManager().beginTransaction();
-//            Log.w("IDOFDESTROYED",":"+getSupportFragmentManager().findFragmentById(R.id.fragment_container).getTag());
-//            fragmentTransaction.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
-//            fragmentTransaction.add(R.id.fragment_container,fragment,"tech");
-//            fragmentTransaction.commit();
-
-
-            frag2= (techNews) getSupportFragmentManager().findFragmentByTag("tech");
-
-            if(frag2==null){
-                techNews fragment=new techNews();
-                ft.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
-                ft.add(R.id.fragment_container,fragment,"tech");
-                ft.commit();
-            }else{
-                ft.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
-                ft.show(frag2);
-                ft.commit();
-                Toast.makeText(getApplicationContext(),"GSW",Toast.LENGTH_LONG).show();
-            }
-
-        } else if (id == R.id.nav_slideshow) {
-
-            nepal fragment=new nepal();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container,fragment,"nepal");
-            fragmentTransaction.commit();
-
-        } else if (id == R.id.nav_manage) {
-            mobilePrice fragment=new mobilePrice();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container,fragment,"mobile");
-            fragmentTransaction.commit();
-
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
+            Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+            ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
         }
+
+        switch(id){
+            case R.id.nav_camera:
+                Tag="home";
+                frag=getSupportFragmentManager().findFragmentByTag("home");
+                if(frag==null){
+                    if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
+                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    }
+                    frag=new homeFragment();
+                    ft.add(R.id.fragment_container,frag,Tag);
+                    ft.commit();
+                    PrevTag=Tag;
+                }
+                else{
+                    Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    ft.show(frag);
+                    //ft.add(frag,Tag);
+                    ft.commit();
+                    PrevTag=Tag;
+                    Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.nav_gallery:
+                Tag="tech";
+                frag=getSupportFragmentManager().findFragmentByTag("tech");
+                if(frag==null){
+                    if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
+                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    }
+                    frag=new techNews();
+                    ft.add(R.id.fragment_container,frag,Tag);
+                    ft.commit();
+                    PrevTag=Tag;
+                }
+                else{
+                    Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentById(R.id.fragment_container).getTag());
+                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    ft.show(frag);
+                    //ft.add(frag,Tag);
+                    ft.commit();
+                    Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
+                    PrevTag=Tag;
+                }
+                break;
+
+            case R.id.nav_slideshow:
+                Tag="nepal";
+                frag=getSupportFragmentManager().findFragmentByTag("nepal");
+                if(frag==null){
+                    if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
+                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    }
+                    frag=new nepal();
+                    ft.add(R.id.fragment_container,frag,Tag);
+                    ft.commit();
+                    PrevTag=Tag;
+                }
+                else{
+                    Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    ft.show(frag);
+                    //ft.add(frag,Tag);
+                    ft.commit();
+                    PrevTag=Tag;
+                    Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
+
+                }
+
+                break;
+
+            case R.id.nav_manage:
+                Tag="mobile";
+                frag=getSupportFragmentManager().findFragmentByTag("mobile");
+                if(frag==null){
+                    if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
+                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    }
+                    frag=new mobilePrice();
+                    ft.add(R.id.fragment_container,frag,Tag);
+                    ft.commit();
+                    PrevTag=Tag;
+                }
+                else{
+
+                    Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    ft.show(frag);
+                    //ft.add(frag,Tag);
+                    ft.commit();
+                    PrevTag=Tag;
+                    Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
+
+                }
+
+                break;
+
+            default:
+                break;
+        }
+
+//
+//        if (id == R.id.nav_camera) {
+//
+//            frag= getSupportFragmentManager().findFragmentByTag("home");
+//
+//            if(frag==null){
+//                frag=new homeFragment();
+//              ft.add(R.id.fragment_container,frag,"home");
+//            ft.commit();
+//            }else{
+//                ft.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
+//                ft.show(frag);
+//                ft.commit();
+//                Toast.makeText(getApplicationContext(),"houston",Toast.LENGTH_LONG).show();
+//            }
+//
+//        } else if (id == R.id.nav_gallery) {
+//
+//            frag2= (techNews) getSupportFragmentManager().findFragmentByTag("tech");
+//
+//            if(frag2==null){
+//                techNews fragment=new techNews();
+//                ft.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
+//                ft.add(R.id.fragment_container,fragment,"tech");
+//                ft.commit();
+//            }else{
+//                ft.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
+//                ft.show(frag2);
+//                ft.commit();
+//                Toast.makeText(getApplicationContext(),"GSW",Toast.LENGTH_LONG).show();
+//            }
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//            nepal fragment=new nepal();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,fragment,"nepal");
+//            fragmentTransaction.commit();
+//
+//        } else if (id == R.id.nav_manage) {
+//            mobilePrice fragment=new mobilePrice();
+//            android.support.v4.app.FragmentTransaction fragmentTransaction =
+//                    getSupportFragmentManager().beginTransaction();
+//            fragmentTransaction.replace(R.id.fragment_container,fragment,"mobile");
+//            fragmentTransaction.commit();
+//
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
