@@ -21,87 +21,98 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import static android.webkit.WebSettings.LayoutAlgorithm.NARROW_COLUMNS;
+import static android.webkit.WebSettings.LayoutAlgorithm.SINGLE_COLUMN;
 import static android.webkit.WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
 
 public class articleScrolling extends AppCompatActivity{
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    //@RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         WebView webView=(WebView) findViewById(R.id.articleContent);
-
-        webView.getSettings().setLayoutAlgorithm(TEXT_AUTOSIZING);
-
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setLoadWithOverviewMode(true);
-        webView.getSettings().setUseWideViewPort(true);
-        webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-        webView.setScrollbarFadingEnabled(true);
+        //webView.getSettings().setLayoutAlgorithm(SINGLE_COLUMN);
+        FloatingActionButton fabShare=(FloatingActionButton)findViewById(R.id.fabShare);
+
         ImageView imageView=(ImageView)findViewById(R.id.featuredImage);
         CollapsingToolbarLayout collapsingToolbarLayout=(CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-//        FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.fab_note);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setHomeButtonEnabled(true);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Log.w("ISSHOWING",":"+getSupportActionBar().isShowing());
 
         Intent intent=getIntent();
-//
-//        fab.setOnClickListener(new OnClickListener() {
-//                                   @Override
-//                                   public void onClick(View v) {
-//                                       onBackPressed();;
-//                                   }
-//                               });
+
+        fabShare.setOnClickListener(new OnClickListener() {
+                                   @Override
+                                   public void onClick(View v) {
+                                       Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                                       sharingIntent.setType("text/plain");
+                                       String shareBodyText = "Check it out. Your message goes here http://www.google.com";
+                                       sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
+                                       sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+                                       sharingIntent.putExtra(android.content.Intent.EXTRA_EMAIL,shareBodyText);
+                                       startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
+
+                                   }
+                               });
 
 
                 collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
-        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
+
+
+
+        String htmlString = "<html><head><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script><style>figure {position:relative;padding-left:0;margin-left:0;}iframe{max-width:100%;}html,body{max-width:99%;overflow-x:hidden;display:inline-block;float:left;}</style></head><body>"+intent.getStringExtra("content")+"</body></html>";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            //textView.setText(Html.fromHtml(intent.getStringExtra("content"),Html.FROM_HTML_MODE_LEGACY));
-            webView.loadDataWithBaseURL("", intent.getStringExtra("content"),"text/html","UTF-8", "");
+                webView.loadDataWithBaseURL("",htmlString ,"text/html","UTF-8", "");
+            }else{
+                WebSettings settings = webView.getSettings();
+                settings.setDefaultTextEncodingName("utf-8");
+                webView.loadData(htmlString, "text/html; charset=utf-8",null);
+
+            }
+            Picasso.with(getApplicationContext())
+                    .load(intent.getStringExtra("imgurl"))
+                    .placeholder(R.drawable.ggg)
+                    .error(android.R.drawable.stat_notify_error)
+                    .into(imageView);
+            collapsingToolbarLayout.setTitle(intent.getStringExtra("title"));
+
+   //         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                view.loadUrl(" javascript:$('img').removeAttr('width');$('img').removeAttr('height');$('figure').removeAttr('style');");
+
+            }
+        });
+
         }
-        Picasso.with(getApplicationContext())
-                .load(intent.getStringExtra("imgurl"))
-                .placeholder(R.drawable.ggg)
-                .error(android.R.drawable.stat_notify_error)
-                .into(imageView);
-        collapsingToolbarLayout.setTitle(intent.getStringExtra("title"));
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-//        toolbar.setNavigationIcon(R.drawable.ic_menu_send);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i("PRESSEDSEND",":backbutton");
-//                Toast.makeText(getApplicationContext(),"PRESSED IT",Toast.LENGTH_LONG).show();
-//                onBackPressed();
-//            }
-//        });
-
-    }
-@Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        onBackPressed();
-    switch (item.getItemId()) {
-        // Respond to the action bar's Up/Home button
-        case android.R.id.home:
+    @Override
+        public boolean onOptionsItemSelected(MenuItem item){
             onBackPressed();
-            return true;
-    }
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
 
-        return super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
 
+        }
     }
-}

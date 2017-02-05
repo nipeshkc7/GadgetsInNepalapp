@@ -98,17 +98,29 @@ tools:context="com.gadgetsinnepal.gadgetsinnepalapp.articleScrolling">
             android:background="@drawable/scrim_bottom"
             />
 
-
         <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_collapseMode="pin"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+        app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+</android.support.v7.widget.Toolbar>
 
 
     </net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout>
 </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_menu_share"
+        app:backgroundTint="#E91E63"
+        app:fabSize="normal"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="right|bottom" />
 
 <include layout="@layout/content_article_scrolling" />
 

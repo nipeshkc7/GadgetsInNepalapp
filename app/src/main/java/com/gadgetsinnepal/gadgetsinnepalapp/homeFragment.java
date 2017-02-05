@@ -1,23 +1,29 @@
 package com.gadgetsinnepal.gadgetsinnepalapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.Serializable;
+
+import static android.R.attr.button;
 
 
 public class homeFragment extends Fragment {
 
     private RecyclerView rvItem;
     private updateAdapter updateLatestPage;
+    private Button shareButton;
 
     public homeFragment() {
     }
@@ -29,7 +35,7 @@ public class homeFragment extends Fragment {
 
             //setContentView(R.layout.activity_main);
             Toast.makeText(getContext(),"NOPE!",Toast.LENGTH_LONG).show();
-            setRetainInstance(true);
+            //setRetainInstance(true);
             View rootview = inflater.inflate(R.layout.fragment_home, container, false);
             rvItem = (RecyclerView) rootview.findViewById(R.id.rvItem);
             rvItem.setHasFixedSize(true);
@@ -42,5 +48,21 @@ public class homeFragment extends Fragment {
             return rootview;
         }
 
+//
+//    public boolean onOptionsItemSelected(MenuItem item){
+//        super.onOptionsItemSelected(item);
+//        switch (item.getItemId())
+//        {
+//            case R.id.menu_item_share:
+//                Intent sendIntent = new Intent();
+//                sendIntent.setAction(Intent.ACTION_SEND);
+//                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+//                sendIntent.setType("text/plain");
+//                startActivity(Intent.createChooser(sendIntent,"GadgetsInNepal" ));
+//                return true;
+//            default:
+//                return false;
+//        }
+//    }
 
 }

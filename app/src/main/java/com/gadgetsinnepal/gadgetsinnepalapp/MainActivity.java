@@ -25,13 +25,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        homeFragment fragment=new homeFragment();
-//        android.support.v4.app.FragmentTransaction fragmentTransaction =
-//                getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.fragment_container,fragment);
-//        fragmentTransaction.commit();
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -199,62 +192,9 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
-//
-//        if (id == R.id.nav_camera) {
-//
-//            frag= getSupportFragmentManager().findFragmentByTag("home");
-//
-//            if(frag==null){
-//                frag=new homeFragment();
-//              ft.add(R.id.fragment_container,frag,"home");
-//            ft.commit();
-//            }else{
-//                ft.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
-//                ft.show(frag);
-//                ft.commit();
-//                Toast.makeText(getApplicationContext(),"houston",Toast.LENGTH_LONG).show();
-//            }
-//
-//        } else if (id == R.id.nav_gallery) {
-//
-//            frag2= (techNews) getSupportFragmentManager().findFragmentByTag("tech");
-//
-//            if(frag2==null){
-//                techNews fragment=new techNews();
-//                ft.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
-//                ft.add(R.id.fragment_container,fragment,"tech");
-//                ft.commit();
-//            }else{
-//                ft.hide(getSupportFragmentManager().findFragmentById(R.id.fragment_container));
-//                ft.show(frag2);
-//                ft.commit();
-//                Toast.makeText(getApplicationContext(),"GSW",Toast.LENGTH_LONG).show();
-//            }
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//            nepal fragment=new nepal();
-//            android.support.v4.app.FragmentTransaction fragmentTransaction =
-//                    getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.fragment_container,fragment,"nepal");
-//            fragmentTransaction.commit();
-//
-//        } else if (id == R.id.nav_manage) {
-//            mobilePrice fragment=new mobilePrice();
-//            android.support.v4.app.FragmentTransaction fragmentTransaction =
-//                    getSupportFragmentManager().beginTransaction();
-//            fragmentTransaction.replace(R.id.fragment_container,fragment,"mobile");
-//            fragmentTransaction.commit();
-//
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
