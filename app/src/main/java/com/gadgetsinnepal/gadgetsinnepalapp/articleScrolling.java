@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,9 +33,9 @@ import static android.webkit.WebSettings.LayoutAlgorithm.NARROW_COLUMNS;
 import static android.webkit.WebSettings.LayoutAlgorithm.SINGLE_COLUMN;
 import static android.webkit.WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
 
+@SuppressWarnings("deprecation")
 public class articleScrolling extends AppCompatActivity{
 
-    //@RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +53,14 @@ public class articleScrolling extends AppCompatActivity{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Log.w("ISSHOWING",":"+getSupportActionBar().isShowing());
 
-        Intent intent=getIntent();
-
+        final Intent intent=getIntent();
         fabShare.setOnClickListener(new OnClickListener() {
                                    @Override
                                    public void onClick(View v) {
                                        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                                        sharingIntent.setType("text/plain");
-                                       String shareBodyText = "Check it out. Your message goes here http://www.google.com";
+                                       String shareBodyText = "Check out this article from GadgetsInNepal :"+intent.getStringExtra("title")+"\n"+ intent.getStringExtra("link");
+
                                        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject here");
                                        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
                                        sharingIntent.putExtra(android.content.Intent.EXTRA_EMAIL,shareBodyText);
@@ -72,24 +73,25 @@ public class articleScrolling extends AppCompatActivity{
                 collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
                 collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
 
-
-
+        Spanned result;
         String htmlString = "<html><head><script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js\"></script><style>figure {position:relative;padding-left:0;margin-left:0;}iframe{max-width:100%;}html,body{max-width:99%;overflow-x:hidden;display:inline-block;float:left;}</style></head><body>"+intent.getStringExtra("content")+"</body></html>";
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 webView.loadDataWithBaseURL("",htmlString ,"text/html","UTF-8", "");
-            }else{
+                result = Html.fromHtml(intent.getStringExtra("title"),Html.FROM_HTML_MODE_LEGACY);
+
+        }else{
                 WebSettings settings = webView.getSettings();
                 settings.setDefaultTextEncodingName("utf-8");
                 webView.loadData(htmlString, "text/html; charset=utf-8",null);
-
+                result = Html.fromHtml(intent.getStringExtra("title"));
             }
             Picasso.with(getApplicationContext())
                     .load(intent.getStringExtra("imgurl"))
                     .placeholder(R.drawable.ggg)
                     .error(android.R.drawable.stat_notify_error)
                     .into(imageView);
-            collapsingToolbarLayout.setTitle(intent.getStringExtra("title"));
+            collapsingToolbarLayout.setTitle(result);
 
    //         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

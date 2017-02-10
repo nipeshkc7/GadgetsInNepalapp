@@ -2,6 +2,7 @@ package com.gadgetsinnepal.gadgetsinnepalapp;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -50,16 +51,18 @@ public class FetchWpApi {
                                 final sItem sitem=new sItem();
                                 JSONObject item = (JSONObject) response
                                         .get(i);
-                                String id = item.getString("id");
-                                sitem.id=id;
-                                String date = item.getString("date");
+                                sitem.id= item.getString("id");
+                                sitem.date= item.getString("date");
+                                sitem.link= item.getString("link");
+
+                                Log.w("LINK",":"+sitem.link);
+
                                 String content;
                                 content=item.getJSONObject("content").getString("rendered");
                                 sitem.content=content;
                                 JSONObject titleobj = item
                                         .getJSONObject("title");
-                                final String title= titleobj.getString("rendered");
-                                sitem.title=title;
+                                sitem.title= titleobj.getString("rendered");
                                 String featuredMedia= item.getString("featured_media");
 
                                 JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
@@ -80,9 +83,9 @@ public class FetchWpApi {
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
-                                            Toast.makeText(context,
-                                                    "Error: " + e.getMessage(),
-                                                    Toast.LENGTH_LONG).show();
+//                                            Toast.makeText(context,
+//                                                    "Error: " + e.getMessage(),
+//                                                    Toast.LENGTH_LONG).show();
                                         }
                                     }
                                 }, new Response.ErrorListener() {
@@ -106,7 +109,7 @@ public class FetchWpApi {
                                     }
                                 });
                                 jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
-                                        7000,
+                                        30000,
                                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
@@ -129,7 +132,7 @@ public class FetchWpApi {
                         // TODO Auto-generated method stub
                     }
                 });
-                jsArrayRequest.setRetryPolicy(new DefaultRetryPolicy(7000,
+                jsArrayRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context).addToRequestQueue(jsArrayRequest);

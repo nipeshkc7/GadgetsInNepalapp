@@ -34,7 +34,7 @@ public class homeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
             //setContentView(R.layout.activity_main);
-            Toast.makeText(getContext(),"NOPE!",Toast.LENGTH_LONG).show();
+            //Toast.makeText(getContext(),"NOPE!",Toast.LENGTH_LONG).show();
             //setRetainInstance(true);
             View rootview = inflater.inflate(R.layout.fragment_home, container, false);
             rvItem = (RecyclerView) rootview.findViewById(R.id.rvItem);

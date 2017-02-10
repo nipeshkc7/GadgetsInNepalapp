@@ -10,6 +10,8 @@ public class sItem {
     public String title;
     public String content;
     public String id;
+    public String date;
+    public String link;
 
     public String getImg() {
         return img;
@@ -42,4 +44,18 @@ public class sItem {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(){this.date=date;}
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(){this.link=link;}
+
 }
+

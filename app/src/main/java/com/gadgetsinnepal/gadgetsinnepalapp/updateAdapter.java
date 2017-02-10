@@ -69,6 +69,8 @@ public class updateAdapter{
                         intent.putExtra("title",list.get(position).title);
                         intent.putExtra("imgurl",list.get(position).img);
                         intent.putExtra("content",list.get(position).content);
+                        intent.putExtra("link",list.get(position).link);
+                        intent.putExtra("date",list.get(position).date);
                         context.startActivity(intent);
                     }
 
