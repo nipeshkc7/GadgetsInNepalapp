@@ -99,4 +99,6 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_article_scrolling">articleScrolling</string>
+    <string name="gadgets_in_nepal">Gadgets In Nepal</string>
+    <string name="site_name">www.gadgetsinnepal.com</string>
 </resources>

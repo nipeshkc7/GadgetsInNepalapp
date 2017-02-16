@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.io.Serializable;
 
 import static android.R.attr.button;
+import static com.gadgetsinnepal.gadgetsinnepalapp.R.id.toolbar;
 
 
 public class homeFragment extends Fragment {
@@ -39,7 +40,6 @@ public class homeFragment extends Fragment {
             View rootview = inflater.inflate(R.layout.fragment_home, container, false);
             rvItem = (RecyclerView) rootview.findViewById(R.id.rvItem);
             rvItem.setHasFixedSize(true);
-
             final LinearLayoutManager manager = new LinearLayoutManager(getContext());
             rvItem.setLayoutManager(manager);
             String url = "http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?page=";

@@ -1,6 +1,7 @@
 package com.gadgetsinnepal.gadgetsinnepalapp;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +21,11 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+   // android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+   String Tag=null;
+    String PrevTag=null;
+    Fragment frag=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,47 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+
+        Tag="home";
+        frag=getSupportFragmentManager().findFragmentByTag("home");
+//        if(frag==null){
+            frag=new homeFragment();
+            ft.add(R.id.fragment_container,frag,Tag);
+            ft.commit();
+            PrevTag=Tag;
+//        }
+//        else{
+//            Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag));
+//            ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+//            ft.show(frag);
+//            //ft.add(frag,Tag);
+//            ft.commit();
+//            PrevTag=Tag;
+//            Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
+//        }
+
+
+
+
+//        navigationView.getMenu().getItem(0).setChecked(true);
+//        onNavigationItemSelected(navigationView.getMenu().getItem(0));
+
+        navigationView.setCheckedItem(R.id.nav_camera);
+
+
+
+
+
+        FloatingActionButton fab_search=(FloatingActionButton) findViewById(R.id.fab);
+        fab_search.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                Intent intent=new Intent(getApplicationContext(),SearchActivity.class);
+                startActivity(intent);
+           }
+        });
     }
 
     @Override
@@ -70,17 +117,16 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    String Tag=null;
-    String PrevTag=null;
-    Fragment frag=null;
+//    String Tag=null;
+//    String PrevTag=null;
+//    Fragment frag=null;
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-
-//        techNews frag2=null;
 
         if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
             Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
@@ -89,6 +135,7 @@ public class MainActivity extends AppCompatActivity
 
         switch(id){
             case R.id.nav_camera:
+
                 Tag="home";
                 frag=getSupportFragmentManager().findFragmentByTag("home");
                 if(frag==null){
@@ -116,7 +163,7 @@ public class MainActivity extends AppCompatActivity
                 frag=getSupportFragmentManager().findFragmentByTag("tech");
                 if(frag==null){
                     if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
-                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                        Log.w("HIDING",":fragmentWithhTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
                         ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
                     }
                     frag=new techNews();
@@ -198,3 +245,4 @@ public class MainActivity extends AppCompatActivity
     }
 
 }
+

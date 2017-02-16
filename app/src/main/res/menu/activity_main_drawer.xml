@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@android:drawable/star_on"
+            android:icon="@android:drawable/btn_star"
             android:title="Home" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@android:drawable/btn_star"
             android:title="Tech News" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@android:drawable/btn_star"
             android:title="Nepal" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@android:drawable/btn_star"
             android:title="Mobile Price" />
     </group>
 

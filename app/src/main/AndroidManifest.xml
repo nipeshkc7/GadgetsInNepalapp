@@ -23,14 +23,28 @@
         <activity
             android:name=".articleScrolling"
             android:label="@string/title_activity_article_scrolling"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gadgetsinnepal.gadgetsinnepalapp.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.gadgetsinnepal.gadgetsinnepalapp.SearchActivity"
+            android:label="@string/gadgets_in_nepal"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
 
-    <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value="com.gadgetsinnepal.gadgetsinnepalapp.MainActivity" />
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
 
-    </activity>
     </application>
 
 </manifest>
