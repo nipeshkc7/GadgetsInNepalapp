@@ -20,8 +20,14 @@
             android:title="Mobile Price" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Others">
+
         <menu>
+            <group android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_save"
+                android:icon="@android:drawable/ic_menu_save"
+                android:title="Saved Articles" />
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
@@ -30,7 +36,9 @@
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
+            </group>
         </menu>
+
     </item>
 
 </menu>

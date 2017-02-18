@@ -24,7 +24,7 @@ public class homeFragment extends Fragment {
 
     private RecyclerView rvItem;
     private updateAdapter updateLatestPage;
-    private Button shareButton;
+
 
     public homeFragment() {
     }

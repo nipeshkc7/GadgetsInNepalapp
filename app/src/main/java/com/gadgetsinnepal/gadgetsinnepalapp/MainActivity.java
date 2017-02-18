@@ -235,6 +235,40 @@ public class MainActivity extends AppCompatActivity
 
                 break;
 
+            case R.id.nav_save:
+                //Open up saved articles fragment
+                Tag="save";
+                frag=getSupportFragmentManager().findFragmentByTag("save");
+//                if(frag==null){
+//                    if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
+//                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+//                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+//                    }
+//                    frag=new saveFragment();
+//                    ft.add(R.id.fragment_container,frag,Tag);
+//                    ft.commit();
+//                    PrevTag=Tag;
+//                }
+//                else{
+//                    Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+//                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+//                    frag=new saveFragment();
+//                    ft.add(R.id.fragment_container,frag,Tag);
+//                    ft.commit();
+//                    PrevTag=Tag;
+//                    Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
+//                }
+                if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
+                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    }
+                    frag=new saveFragment();
+                    ft.add(R.id.fragment_container,frag,Tag);
+                    ft.commit();
+                    PrevTag=Tag;
+
+                break;
+
             default:
                 break;
         }
