@@ -1,6 +1,7 @@
 package com.gadgetsinnepal.gadgetsinnepalapp;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -97,8 +104,11 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent=new Intent(getApplicationContext(),settingsActivity.class);
+            startActivity(intent);
             return true;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -156,18 +166,46 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_save:
                 //Open up saved articles fragment
-                Title="Saved Articles";
-                Tag="save";
-                frag=getSupportFragmentManager().findFragmentByTag(Tag);
+                Title = "Saved Articles";
+                Tag = "save";
+                if(!readFromFile(getApplicationContext()).equals("")) {
 
-                if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
-                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                    frag = getSupportFragmentManager().findFragmentByTag(Tag);
+
+                    if (getSupportFragmentManager().findFragmentByTag(PrevTag) != null) {
+                        Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
                         ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
                     }
-                    frag=new saveFragment();
-                    ft.add(R.id.fragment_container,frag,Tag);
+                    frag = new saveFragment();
+                    ft.add(R.id.fragment_container, frag, Tag);
                     ft.commit();
-                    PrevTag=Tag;
+                    PrevTag = Tag;
+
+                }else{
+                    Toast.makeText(getApplicationContext(),"No articles saved",Toast.LENGTH_SHORT).show();
+                    if (getSupportFragmentManager().findFragmentByTag(PrevTag) != null) {
+                        Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    }
+                    frag = new noSavedArticles();
+                    ft.add(R.id.fragment_container, frag, Tag);
+                    ft.commit();
+                    PrevTag = Tag;
+                }
+                break;
+
+
+            //NEED TO ADD LINK TO THE APP
+            case R.id.nav_share:
+
+                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    String shareBodyText = "Check out GadgetsInNepal's app\n" + "<LINK HERE>";
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject here");
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_EMAIL, shareBodyText);
+                    startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
+
 
                 break;
 
@@ -206,6 +244,36 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private String readFromFile(Context context) {
+
+        String ret = "";
+
+        try {
+            InputStream inputStream = context.openFileInput("savedArticles.txt");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
+
+        return ret;
     }
 
 }

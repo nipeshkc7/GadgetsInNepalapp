@@ -39,7 +39,6 @@ public class homeFragment extends Fragment {
             rvItem.setHasFixedSize(true);
             final LinearLayoutManager manager = new LinearLayoutManager(getContext());
             rvItem.setLayoutManager(manager);
-            //String url = "http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?page=";
             String url=args.getString("url");
             updateLatestPage = new updateAdapter(rvItem, getContext(), url, manager);
             updateLatestPage.fetchAndPut();

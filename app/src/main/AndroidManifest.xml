@@ -30,9 +30,9 @@
                 android:value="com.gadgetsinnepal.gadgetsinnepalapp.MainActivity" />
         </activity>
         <activity
-            android:name="com.gadgetsinnepal.gadgetsinnepalapp.SearchActivity"
+            android:name=".SearchActivity"
             android:label="@string/gadgets_in_nepal"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -44,7 +44,10 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-
+        <activity
+            android:name=".settingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
