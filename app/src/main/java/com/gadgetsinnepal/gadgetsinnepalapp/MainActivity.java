@@ -22,8 +22,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
    // android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
-   String Tag=null;
+    String Tag=null;
     String PrevTag=null;
+    String Title="GadgetsInNepal App";
     Fragment frag=null;
 
     @Override
@@ -47,29 +48,14 @@ public class MainActivity extends AppCompatActivity
 
         Tag="home";
         frag=getSupportFragmentManager().findFragmentByTag("home");
-//        if(frag==null){
-            frag=new homeFragment();
-            ft.add(R.id.fragment_container,frag,Tag);
-            ft.commit();
-            PrevTag=Tag;
-//        }
-//        else{
-//            Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag));
-//            ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-//            ft.show(frag);
-//            //ft.add(frag,Tag);
-//            ft.commit();
-//            PrevTag=Tag;
-//            Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
-//        }
-
-
-
-
-//        navigationView.getMenu().getItem(0).setChecked(true);
-//        onNavigationItemSelected(navigationView.getMenu().getItem(0));
-
-        navigationView.setCheckedItem(R.id.nav_camera);
+        Bundle args=new Bundle();
+        args.putString("url","http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?page=");
+        frag=new homeFragment();
+        frag.setArguments(args);
+        ft.add(R.id.fragment_container,frag,Tag);
+        ft.commit();
+        PrevTag=Tag;
+        navigationView.setCheckedItem(R.id.nav_home);
 
 
 
@@ -117,14 +103,12 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-//    String Tag=null;
-//    String PrevTag=null;
-//    Fragment frag=null;
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        String url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?page=";
+
         int id = item.getItemId();
         android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
 
@@ -134,130 +118,48 @@ public class MainActivity extends AppCompatActivity
         }
 
         switch(id){
-            case R.id.nav_camera:
-
+            case R.id.nav_home:
+                Title="Latest Articles";
                 Tag="home";
-                frag=getSupportFragmentManager().findFragmentByTag("home");
-                if(frag==null){
-                    if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
-                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
-                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    }
-                    frag=new homeFragment();
-                    ft.add(R.id.fragment_container,frag,Tag);
-                    ft.commit();
-                    PrevTag=Tag;
-                }
-                else{
-                    Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    ft.show(frag);
-                    //ft.add(frag,Tag);
-                    ft.commit();
-                    PrevTag=Tag;
-                    Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
-                }
+                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?page=";
                 break;
-            case R.id.nav_gallery:
+            case R.id.nav_tech:
+                Title="Tech News";
                 Tag="tech";
-                frag=getSupportFragmentManager().findFragmentByTag("tech");
-                if(frag==null){
-                    if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
-                        Log.w("HIDING",":fragmentWithhTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
-                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    }
-                    frag=new techNews();
-                    ft.add(R.id.fragment_container,frag,Tag);
-                    ft.commit();
-                    PrevTag=Tag;
-                }
-                else{
-                    Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentById(R.id.fragment_container).getTag());
-                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    ft.show(frag);
-                    //ft.add(frag,Tag);
-                    ft.commit();
-                    Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
-                    PrevTag=Tag;
-                }
+                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=1&&page=";
                 break;
-
-            case R.id.nav_slideshow:
+            case R.id.nav_nepal:
+                Title="Nepal";
                 Tag="nepal";
-                frag=getSupportFragmentManager().findFragmentByTag("nepal");
-                if(frag==null){
-                    if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
-                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
-                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    }
-                    frag=new nepal();
-                    ft.add(R.id.fragment_container,frag,Tag);
-                    ft.commit();
-                    PrevTag=Tag;
-                }
-                else{
-                    Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
-                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    ft.show(frag);
-                    //ft.add(frag,Tag);
-                    ft.commit();
-                    PrevTag=Tag;
-                    Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
-
-                }
-
+                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=299&&page=";
                 break;
-
-            case R.id.nav_manage:
+            case R.id.nav_mobile:
+                Title="Mobile Prices";
                 Tag="mobile";
-                frag=getSupportFragmentManager().findFragmentByTag("mobile");
-                if(frag==null){
-                    if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
-                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
-                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    }
-                    frag=new mobilePrice();
-                    ft.add(R.id.fragment_container,frag,Tag);
-                    ft.commit();
-                    PrevTag=Tag;
-                }
-                else{
-
-                    Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
-                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    ft.show(frag);
-                    //ft.add(frag,Tag);
-                    ft.commit();
-                    PrevTag=Tag;
-                    Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
-
-                }
-
+                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=272&&page=";
+                break;
+            case R.id.nav_best:
+                Title="Best of the Best";
+                Tag="best";
+                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts?categories=294&&page=";
+                break;
+            case R.id.nav_howto:
+                Title="How To";
+                Tag="howto";
+                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts?categories=76&&page=";
+                break;
+            case R.id.nav_pclaptops:
+                Title="PC and Laptops";
+                Tag="pclaptops";
+                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts?categories=707&&page=";
                 break;
 
             case R.id.nav_save:
                 //Open up saved articles fragment
+                Title="Saved Articles";
                 Tag="save";
-                frag=getSupportFragmentManager().findFragmentByTag("save");
-//                if(frag==null){
-//                    if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
-//                        Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
-//                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-//                    }
-//                    frag=new saveFragment();
-//                    ft.add(R.id.fragment_container,frag,Tag);
-//                    ft.commit();
-//                    PrevTag=Tag;
-//                }
-//                else{
-//                    Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
-//                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-//                    frag=new saveFragment();
-//                    ft.add(R.id.fragment_container,frag,Tag);
-//                    ft.commit();
-//                    PrevTag=Tag;
-//                    Toast.makeText(getApplicationContext(),Tag,Toast.LENGTH_LONG).show();
-//                }
+                frag=getSupportFragmentManager().findFragmentByTag(Tag);
+
                 if(getSupportFragmentManager().findFragmentByTag(PrevTag)!=null) {
                         Log.w("HIDING",":fragmentWithTag"+getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
                         ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
@@ -271,6 +173,34 @@ public class MainActivity extends AppCompatActivity
 
             default:
                 break;
+        }
+
+        getSupportActionBar().setTitle(Title);
+
+        if(id==R.id.nav_home||id==R.id.nav_tech||id==R.id.nav_mobile||id==R.id.nav_nepal||id==R.id.nav_pclaptops||id==R.id.nav_howto||id==R.id.nav_best) {
+            frag = getSupportFragmentManager().findFragmentByTag(Tag);
+
+            if (frag == null) {
+                if (getSupportFragmentManager().findFragmentByTag(PrevTag) != null) {
+                    Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                }
+                frag = new homeFragment();
+                Bundle args = new Bundle();
+                args.putString("url", url);
+                frag.setArguments(args);
+                Log.w("SENDINGURL",""+url);
+                ft.add(R.id.fragment_container, frag, Tag);
+                ft.commit();
+                PrevTag = Tag;
+            } else {
+                Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag));
+                ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                ft.show(frag);
+                ft.commit();
+                PrevTag = Tag;
+                Toast.makeText(getApplicationContext(), Tag, Toast.LENGTH_SHORT).show();
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
