@@ -1,13 +1,11 @@
 package com.gadgetsinnepal.gadgetsinnepalapp;
 
 
-public class sItem {
+public class video_items {
+
     public String img;
     public String title;
-    public String content;
     public String id;
-    public String date;
-    public String link;
 
     public String getImg() {
         return img;
@@ -33,25 +31,7 @@ public class sItem {
         this.id = id;
     }
 
-    public String getContent() {
-        return content;
-    }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(){this.date=date;}
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(){this.link=link;}
 
 }
 

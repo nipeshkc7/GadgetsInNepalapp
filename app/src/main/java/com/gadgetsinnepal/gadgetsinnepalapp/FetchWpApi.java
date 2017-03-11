@@ -22,10 +22,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by Sauharda Chhetri on 1/22/2017.
- */
-
 public class FetchWpApi {
 
     private String url;

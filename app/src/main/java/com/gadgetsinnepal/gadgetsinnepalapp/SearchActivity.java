@@ -24,7 +24,7 @@ public class SearchActivity extends AppCompatActivity {
         SearchView searchView=(SearchView) findViewById(R.id.searchview);
         //SearchView search = (SearchView) item.getActionView();
        //searchView.setLayoutParams(new .LayoutParams(Gravity.RIGHT));
-
+        searchView.setQueryHint(getIntent().getStringExtra("search_placeholder"));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
                                               @Override
                                               public boolean onQueryTextSubmit(String query){
@@ -32,7 +32,8 @@ public class SearchActivity extends AppCompatActivity {
                                                   android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
                                                   Bundle bundle=new Bundle();
                                                   bundle.putString("sQuery",query);
-
+                                                  bundle.putString("search_placeholder",getIntent().getStringExtra("search_placeholder"));
+                                                  bundle.putString("search_link",getIntent().getStringExtra("search_link"));
                                                   searchContaining frag=new searchContaining();
                                                   frag.setArguments(bundle);
                                                   ft.replace(R.id.fragment_container,frag,"Search");

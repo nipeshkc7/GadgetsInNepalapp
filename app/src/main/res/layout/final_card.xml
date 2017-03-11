@@ -20,6 +20,7 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+
         <TextView
             android:id="@+id/tvTitle"
             android:textColor="#000"
@@ -60,11 +61,14 @@
             />
 
         <View
+            android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="#0C000000"
             android:layout_below="@id/ivMainImage"
             />
+
+
     </RelativeLayout>
 
 

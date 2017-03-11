@@ -29,6 +29,8 @@ public class searchContaining extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String query=getArguments().getString("sQuery");
+        String search_placeholder=getArguments().getString("search_placeholder");
+        String search_link=getArguments().getString("search_link");
         Log.w("sQueryis",query);
         //setContentView(R.layout.activity_main);
         //Toast.makeText(getContext(),"NOPE!",Toast.LENGTH_LONG).show();
@@ -39,8 +41,10 @@ public class searchContaining extends Fragment {
 
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         rvItem.setLayoutManager(manager);
-        String url = "http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts?search="+query+"&&page=";
-        updateLatestPage = new updateAdapter(rvItem, getContext(), url, manager);
+        //String url = "http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts?search="+query+"&&page=";
+        String url = search_link+query+"&&page=";
+        Log.w("SENDINGTO",search_link);
+        updateLatestPage = new updateAdapter(rvItem, getContext(), url, manager,rootview);
         updateLatestPage.fetchAndPut();
         return rootview;
 

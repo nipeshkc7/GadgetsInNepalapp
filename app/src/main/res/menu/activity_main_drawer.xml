@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@android:drawable/btn_star"
+            android:icon="@drawable/icon1"
             android:title="@string/home" />
         <item
             android:id="@+id/nav_tech"
-            android:icon="@android:drawable/btn_star"
+            android:icon="@drawable/icon_tech"
             android:title="@string/tech_news" />
         <item
             android:id="@+id/nav_nepal"
@@ -41,6 +41,10 @@
                 android:id="@+id/nav_save"
                 android:icon="@android:drawable/ic_menu_save"
                 android:title="@string/saved_articles" />
+                <item
+                    android:id="@+id/nav_videos"
+                    android:icon="@android:drawable/btn_star"
+                    android:title="videos" />
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"

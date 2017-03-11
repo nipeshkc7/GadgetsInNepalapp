@@ -3,20 +3,14 @@ package com.gadgetsinnepal.gadgetsinnepalapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by Sauharda Chhetri on 1/22/2017.
- */
 //THIS CLASS UPDATES THE RECYCLER VIEW
 
 public class updateAdapter{
@@ -29,13 +23,15 @@ public class updateAdapter{
     private RecyclerView recyclerView;
     private ArrayList<sItem> list= new ArrayList<>();
     private LinearLayoutManager manager;
+    private ProgressBar progressBar;
 
     //CONSTRUCTOR FOR updateAdapter
-    public updateAdapter(RecyclerView recyclerView, final Context context, String url, LinearLayoutManager manager){
+    public updateAdapter(RecyclerView recyclerView, final Context context, String url, LinearLayoutManager manager, View rootview){
         this.context=context;
         this.recyclerView=recyclerView;
         fetch=new FetchWpApi(url,context);
         this.manager=manager;
+        progressBar=(ProgressBar)rootview.findViewById(R.id.progress);
     }
 
     public void fetchAndPut()
@@ -98,8 +94,12 @@ public class updateAdapter{
                     Log.w("FpAge",":"+fpage);
 
                         if( (lastVisibleItemPosition+1)==totalItemCount && totalItemCount%10==0 && lastVisibleItemPosition>prevLastvisible)
-                        //if ( (lastVisibleItemPosition+1)%10==0 && lastVisibleItemPosition>prevLastvisible)
+
                         {
+
+                            //SET VISIBILITY OF THE PROGRESS BAR IN THE LAST CARD ITEM TO VISIBLE ??
+
+                            progressBar.setVisibility(View.VISIBLE);
                             fpage++;
                             //loading = false;
                             Log.v("...", "Last Item !");
@@ -108,6 +108,7 @@ public class updateAdapter{
                             fetch.fetchApiData(fpage,new FetchWpApi.Callback(){
                                 @Override
                                 public void onSuccess(sItem sitem){
+                                    progressBar.setVisibility(View.GONE);
                                     list.add(sitem);
                                     recyclerView.getAdapter().notifyDataSetChanged();
                                     recyclerView.getAdapter().notifyItemRangeChanged(0, recyclerView.getAdapter().getItemCount());
@@ -115,6 +116,7 @@ public class updateAdapter{
                                 }
                                 @Override
                                 public void onFail(String msg){
+                                    progressBar.setVisibility(View.GONE);
                                     Toast.makeText(context,"FAILED ONLOAD",Toast.LENGTH_LONG).show();
                                 }
                             });

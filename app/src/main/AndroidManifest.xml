@@ -6,7 +6,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ggg"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -47,7 +47,13 @@
         <activity
             android:name=".settingsActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".videos"
+            android:label="@string/title_activity_videos"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".grid_videos_list" />
+        <activity android:name=".Main2Activity"></activity>
     </application>
 
 </manifest>

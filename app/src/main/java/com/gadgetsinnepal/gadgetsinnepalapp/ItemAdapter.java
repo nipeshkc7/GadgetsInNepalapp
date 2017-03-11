@@ -36,17 +36,17 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     private Context context;
     private ArrayList<sItem> ItemList;
 
-    public ItemAdapter(Context context, ArrayList<sItem> ItemList){
-        this.context=context;
-        this.ItemList=ItemList;
+    public ItemAdapter(Context context, ArrayList<sItem> ItemList) {
+        this.context = context;
+        this.ItemList = ItemList;
 
     }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        View view=inflater.from(parent.getContext()).inflate(R.layout.final_card,parent,false);
-        ItemViewHolder itemViewHolder=new ItemViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.from(parent.getContext()).inflate(R.layout.final_card, parent, false);
+        ItemViewHolder itemViewHolder = new ItemViewHolder(view);
 
         return itemViewHolder;
     }
@@ -55,7 +55,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
-        sItem item= ItemList.get(position);
+        sItem item = ItemList.get(position);
         Picasso.with(context)
                 .load(item.img)
                 .placeholder(R.drawable.ggg)
@@ -64,7 +64,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         Spanned result;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            result = Html.fromHtml(item.title,Html.FROM_HTML_MODE_LEGACY);
+            result = Html.fromHtml(item.title, Html.FROM_HTML_MODE_LEGACY);
         } else {
             result = Html.fromHtml(item.title);
         }
@@ -75,15 +75,15 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
 
-
     @Override
     public int getItemCount() {
 
-        if(ItemList!=null){
+        if (ItemList != null) {
             return ItemList.size();
         }
         return 0;
     }
+
     //Viewholder Class
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         CardView cvItem;
@@ -93,26 +93,26 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            cvItem=(CardView)itemView.findViewById(R.id.cvItem);
-            ivImg=(ImageView)itemView.findViewById(R.id.ivMainImage);
-            tvText=(TextView)itemView.findViewById(R.id.tvTitle);
-            dateText=(TextView)itemView.findViewById(R.id.dateText);
+            cvItem = (CardView) itemView.findViewById(R.id.cvItem);
+            ivImg = (ImageView) itemView.findViewById(R.id.ivMainImage);
+            tvText = (TextView) itemView.findViewById(R.id.tvTitle);
+            dateText = (TextView) itemView.findViewById(R.id.dateText);
         }
 
     }
 
-    private String dateCalculator(String date){
+    private String dateCalculator(String date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         long different;
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
         long hoursInMilli = minutesInMilli * 60;
         long daysInMilli = hoursInMilli * 24;
-        Calendar c= Calendar.getInstance();
-       // Log.w("CALANDERDATE",":"+c.getTimeInMillis());
+        Calendar c = Calendar.getInstance();
+        // Log.w("CALANDERDATE",":"+c.getTimeInMillis());
         try {
             Date diff_date = format.parse(date);
-            different=c.getTimeInMillis()-diff_date.getTime();
+            different = c.getTimeInMillis() - diff_date.getTime();
             long elapsedDays = different / daysInMilli;
             different = different % daysInMilli;
 
@@ -124,17 +124,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
             long elapsedSeconds = different / secondsInMilli;
 
-            if(elapsedDays==0) {
-                if(elapsedHours==0){
-                    if(elapsedMinutes==0)
-                    {
-                        return elapsedSeconds+"s";
+            if (elapsedDays == 0) {
+                if (elapsedHours == 0) {
+                    if (elapsedMinutes == 0) {
+                        return elapsedSeconds + "s";
                     }
-                    return elapsedMinutes+"m";
+                    return elapsedMinutes + "m";
                 }
-                return elapsedHours+"hr";
+                return elapsedHours + "hr";
             }
-            return elapsedDays+"d";
+            return elapsedDays + "d";
 
         } catch (ParseException e) {
             // TODO Auto-generated catch block
@@ -143,6 +142,5 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         }
 
     }
-
 }
 

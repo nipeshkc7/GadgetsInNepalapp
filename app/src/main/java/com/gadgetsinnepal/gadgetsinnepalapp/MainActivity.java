@@ -33,7 +33,9 @@ public class MainActivity extends AppCompatActivity
     String PrevTag=null;
     String Title="GadgetsInNepal App";
     Fragment frag=null;
-
+    int checked_item = 0;
+    String search_placeholder = "";
+    String search_link="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
@@ -67,12 +69,37 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
         FloatingActionButton fab_search=(FloatingActionButton) findViewById(R.id.fab);
         fab_search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                checked_item =getCheckedItem(navigationView);
+                if(checked_item==0){
+                     search_placeholder ="Search GadgetsInNepal";
+                     search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/";
+                }else if (checked_item==1){
+                     search_placeholder ="Search TechNews";
+                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=1&&search=";
+                }else if (checked_item==2){
+                    search_placeholder="Search Nepal";
+                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=299&&search=";
+                }else if (checked_item==3){
+                    search_placeholder="Search mobile prices";
+                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=272&&search=";
+                }else if (checked_item==4){
+                    search_placeholder="Search PC/Laptops";
+                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=707&&search=";
+                }else if (checked_item==5){
+                    search_placeholder="Search Best of the Best";
+                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=294&&search=";
+                }else if (checked_item==6){
+                    search_placeholder="Search HowTo";
+                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=76&&search=";
+                }
 
+                Log.w("CHECKEDITEM", String.valueOf(checked_item));
                 Intent intent=new Intent(getApplicationContext(),SearchActivity.class);
+                intent.putExtra("search_placeholder",search_placeholder);
+                intent.putExtra("search_link",search_link);
                 startActivity(intent);
            }
         });
@@ -194,6 +221,14 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
 
+            case R.id.nav_videos:
+                //Intent video_intent= new Intent(getApplicationContext(),videos.class);
+                //video_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //getApplicationContext().startActivity(video_intent);
+                Intent video_intent= new Intent(getApplicationContext(),grid_videos_list.class);
+                video_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(video_intent);
+                break;
 
             //NEED TO ADD LINK TO THE APP
             case R.id.nav_share:
@@ -205,7 +240,6 @@ public class MainActivity extends AppCompatActivity
                     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
                     sharingIntent.putExtra(android.content.Intent.EXTRA_EMAIL, shareBodyText);
                     startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
-
 
                 break;
 
@@ -274,6 +308,18 @@ public class MainActivity extends AppCompatActivity
         }
 
         return ret;
+    }
+
+    private int getCheckedItem(NavigationView navigationView) {
+        Menu menu = navigationView.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            if (item.isChecked()) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
 }

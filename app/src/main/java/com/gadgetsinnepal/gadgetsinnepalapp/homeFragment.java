@@ -40,7 +40,7 @@ public class homeFragment extends Fragment {
             final LinearLayoutManager manager = new LinearLayoutManager(getContext());
             rvItem.setLayoutManager(manager);
             String url=args.getString("url");
-            updateLatestPage = new updateAdapter(rvItem, getContext(), url, manager);
+            updateLatestPage = new updateAdapter(rvItem, getContext(), url, manager,rootview);
             updateLatestPage.fetchAndPut();
             return rootview;
 

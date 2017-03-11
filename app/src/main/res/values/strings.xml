@@ -112,4 +112,5 @@
     <string name="best_of_the_best">Best of The Best</string>
     <string name="how_to">How To</string>
     <string name="title_activity_settings">settingsActivity</string>
+    <string name="title_activity_videos">videos</string>
 </resources>
