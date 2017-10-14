@@ -35,11 +35,13 @@ public class FetchWpApi {
     public void fetchApiData(int page,final Callback onCallBack){
 
         String request_url=url+page;
-
+        Log.w("fetching",request_url);
         JsonArrayRequest jsArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, request_url, null, new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        Log.w("FetchWpApi","Response is : "+response.toString());
+
                         try {
                             // Parsing json array response
                             // loop through each json object
@@ -60,9 +62,9 @@ public class FetchWpApi {
                                         .getJSONObject("title");
                                 sitem.title= titleobj.getString("rendered");
                                 String featuredMedia= item.getString("featured_media");
-
+                                Log.w("FetchWpApiImageno",featuredMedia);
                                 JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                                        "http://www.gadgetsinnepal.com/wp-json/wp/v2/media/"+featuredMedia, null, new Response.Listener<JSONObject>() {
+                                        "https://www.gadgetsinnepal.com.np/wp-json/wp/v2/media/"+featuredMedia, null, new Response.Listener<JSONObject>() {
 
                                     @Override
                                     public void onResponse(JSONObject nested_response) {
@@ -71,6 +73,7 @@ public class FetchWpApi {
                                             JSONObject guilld = nested_response.getJSONObject("guid");
                                             String featured_img_url = guilld.getString("rendered");
                                             sitem.img=featured_img_url;
+                                            Log.w("FetchWpApiImage",featured_img_url);
                                             //ASSIGN VALUES TO LIST HERE
 
 

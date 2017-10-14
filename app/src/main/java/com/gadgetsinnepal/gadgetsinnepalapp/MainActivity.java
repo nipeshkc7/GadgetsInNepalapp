@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
         Tag="home";
         frag=getSupportFragmentManager().findFragmentByTag("home");
         Bundle args=new Bundle();
-        args.putString("url","http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?page=");
+        args.putString("url",getResources().getText(R.string.gadgets_posts_url)+"?page=");
         frag=new homeFragment();
         frag.setArguments(args);
         ft.add(R.id.fragment_container,frag,Tag);
@@ -73,28 +73,8 @@ public class MainActivity extends AppCompatActivity
         fab_search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 checked_item =getCheckedItem(navigationView);
-                if(checked_item==0){
-                     search_placeholder ="Search GadgetsInNepal";
-                     search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/";
-                }else if (checked_item==1){
-                     search_placeholder ="Search TechNews";
-                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=1&&search=";
-                }else if (checked_item==2){
-                    search_placeholder="Search Nepal";
-                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=299&&search=";
-                }else if (checked_item==3){
-                    search_placeholder="Search mobile prices";
-                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=272&&search=";
-                }else if (checked_item==4){
-                    search_placeholder="Search PC/Laptops";
-                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=707&&search=";
-                }else if (checked_item==5){
-                    search_placeholder="Search Best of the Best";
-                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=294&&search=";
-                }else if (checked_item==6){
-                    search_placeholder="Search HowTo";
-                    search_link="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=76&&search=";
-                }
+                search_link="https://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?search=";
+
 
                 Log.w("CHECKEDITEM", String.valueOf(checked_item));
                 Intent intent=new Intent(getApplicationContext(),SearchActivity.class);
@@ -144,7 +124,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        String url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?page=";
+        String url="https://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?page=";
 
         int id = item.getItemId();
         android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
@@ -158,37 +138,37 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_home:
                 Title="Latest Articles";
                 Tag="home";
-                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?page=";
+                url=getResources().getText(R.string.gadgets_posts_url)+"?page=";
                 break;
             case R.id.nav_tech:
                 Title="Tech News";
                 Tag="tech";
-                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=1&&page=";
+                url=getResources().getText(R.string.gadgets_posts_url)+"?categories="+getResources().getText(R.string.tech_category)+"&&page=";
                 break;
             case R.id.nav_nepal:
                 Title="Nepal";
                 Tag="nepal";
-                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=299&&page=";
+                url=getResources().getText(R.string.gadgets_posts_url)+"?categories="+getResources().getText(R.string.nepal_category)+"&&page=";
                 break;
             case R.id.nav_mobile:
                 Title="Mobile Prices";
                 Tag="mobile";
-                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/?categories=272&&page=";
+                url=getResources().getText(R.string.gadgets_posts_url)+"?categories="+getResources().getText(R.string.mobile_price_category)+"&&page=";
                 break;
             case R.id.nav_best:
                 Title="Best of the Best";
                 Tag="best";
-                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts?categories=294&&page=";
+                url=getResources().getText(R.string.gadgets_posts_url)+"?categories="+getResources().getText(R.string.best_category)+"&&page=";
                 break;
             case R.id.nav_howto:
                 Title="How To";
                 Tag="howto";
-                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts?categories=76&&page=";
+                url=getResources().getText(R.string.gadgets_posts_url)+"?categories="+getResources().getText(R.string.how_to_category)+"&&page=";
                 break;
             case R.id.nav_pclaptops:
                 Title="PC and Laptops";
                 Tag="pclaptops";
-                url="http://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts?categories=707&&page=";
+                url=getResources().getText(R.string.gadgets_posts_url)+"?categories="+getResources().getText(R.string.pc_category)+"&&page=";
                 break;
 
             case R.id.nav_save:
@@ -222,9 +202,6 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_videos:
-                //Intent video_intent= new Intent(getApplicationContext(),videos.class);
-                //video_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                //getApplicationContext().startActivity(video_intent);
                 Intent video_intent= new Intent(getApplicationContext(),grid_videos_list.class);
                 video_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(video_intent);
@@ -271,7 +248,7 @@ public class MainActivity extends AppCompatActivity
                 ft.show(frag);
                 ft.commit();
                 PrevTag = Tag;
-                Toast.makeText(getApplicationContext(), Tag, Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getApplicationContext(), Tag, Toast.LENGTH_SHORT).show();
             }
         }
 

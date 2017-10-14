@@ -7,10 +7,11 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="GadgetsInNepal_custom" parent="android:Theme.Black">
+    <style name="GadgetsInNepal_custom" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/colorPrimary</item>
         <item name="android:textColorPrimaryInverse">@color/colorPrimary</item>
         <item name="android:textColorSecondary">@color/colorPrimary</item>
         <item name="android:textColorSecondaryInverse">@color/accent_material_dark</item>
+        <item name="android:colorBackground">@color/background_material_dark</item>
     </style>
 </resources>

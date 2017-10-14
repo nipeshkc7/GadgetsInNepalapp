@@ -17,11 +17,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"></style>
 
-    <style name="GadgetsInNepal_custom" parent="android:Theme.Black">
+    <style name="GadgetsInNepal_custom" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textColorPrimary">#000</item>
         <item name="android:textColorPrimaryInverse">#000</item>
         <item name="android:textColorSecondary">#000</item>
         <item name="android:textColorSecondaryInverse">#000</item>
+        <item name="android:colorBackground">@color/background_material_dark</item>
     </style>
 
     <style name="CollapsedAppBar" parent="@android:style/TextAppearance">

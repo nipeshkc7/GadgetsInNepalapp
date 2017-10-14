@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GadgetsInNepal app</string>
+    <string name="app_name">GadgetsInNepal</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -99,7 +99,7 @@
     </string>
     <string name="title_activity_article_scrolling">articleScrolling</string>
     <string name="gadgets_in_nepal">Gadgets In Nepal</string>
-    <string name="site_name">www.gadgetsinnepal.com</string>
+    <string name="site_name">\@GadgetsInNepal</string>
     <string name="home">Home</string>
     <string name="tech_news">Tech News</string>
     <string name="nepal">Nepal</string>
@@ -113,4 +113,12 @@
     <string name="how_to">How To</string>
     <string name="title_activity_settings">settingsActivity</string>
     <string name="title_activity_videos">videos</string>
+    <string name="gadgets_posts_url">"https://www.gadgetsinnepal.com.np/wp-json/wp/v2/posts/</string>
+    <string name="tech_category">1</string>
+    <string name="nepal_category">299</string>
+    <string name="mobile_price_category">272</string>
+    <string name="best_category">294</string>
+    <string name="how_to_category">76</string>
+    <string name="pc_category">707</string>
+    <string name="videos">videos</string>
 </resources>

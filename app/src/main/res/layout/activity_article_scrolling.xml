@@ -66,7 +66,7 @@ tools:context="com.gadgetsinnepal.gadgetsinnepalapp.articleScrolling">
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:src="@drawable/ic_menu_share"
-        app:backgroundTint="#E91E63"
+
         app:fabSize="normal"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="end|bottom" />
@@ -80,7 +80,7 @@ tools:context="com.gadgetsinnepal.gadgetsinnepalapp.articleScrolling">
 
         android:layout_marginEnd="83dp"
         android:src="@android:drawable/ic_menu_save"
-        app:backgroundTint="#E91E63"
+
         app:fabSize="normal"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="end|bottom" />

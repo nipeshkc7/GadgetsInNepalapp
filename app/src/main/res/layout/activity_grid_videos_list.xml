@@ -14,7 +14,7 @@
 
 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
 android:id="@+id/activity_grid_videos_list"
-android:numColumns="auto_fit"
+android:numColumns="2"
 android:gravity="center"
 android:columnWidth="100dp"
 android:stretchMode="columnWidth"

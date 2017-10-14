@@ -42,6 +42,7 @@ public class updateAdapter{
                 public void onSuccess(sItem sitem) {
                     list.add(sitem);
                     if (list.size() == 1 || recyclerView.getAdapter() == null) {
+                        Log.w("updateAdapter","newSITEM"+sitem.toString());
                         ItemAdapter adapter = new ItemAdapter(context, list);
                         recyclerView.setAdapter(adapter);
 

@@ -16,19 +16,19 @@
             android:title="@string/nepal" />
         <item
             android:id="@+id/nav_mobile"
-            android:icon="@android:drawable/btn_star"
+            android:icon="@drawable/ic_mobileprice"
             android:title="@string/mobile_price" />
         <item
             android:id="@+id/nav_pclaptops"
-            android:icon="@android:drawable/btn_star"
+            android:icon="@drawable/ic_pc"
             android:title="@string/pc_laptops" />
         <item
             android:id="@+id/nav_best"
-            android:icon="@android:drawable/btn_star"
+            android:icon="@drawable/icon_best"
             android:title="@string/best_of_the_best" />
         <item
             android:id="@+id/nav_howto"
-            android:icon="@android:drawable/btn_star"
+            android:icon="@android:drawable/stat_notify_sdcard_prepare"
             android:title="@string/how_to" />
 
     </group>
@@ -44,7 +44,7 @@
                 <item
                     android:id="@+id/nav_videos"
                     android:icon="@android:drawable/btn_star"
-                    android:title="videos" />
+                    android:title="@string/videos" />
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"

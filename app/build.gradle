@@ -38,4 +38,6 @@ dependencies {
     compile files('YouTubeAndroidPlayerApi.jar')
     testCompile 'junit:junit:4.12'
     compile files('YouTubeAndroidPlayerApi.jar')
+
+    compile 'gr.pantrif:easy-android-splash-screen:0.0.1'
 }
