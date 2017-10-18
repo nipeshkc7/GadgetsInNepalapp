@@ -3,11 +3,16 @@ package com.gadgetsinnepal.gadgetsinnepalapp;
 
 public class sItem {
     public String img;
+    public String mediumSizedImage;
     public String title;
     public String content;
     public String id;
     public String date;
     public String link;
+
+    public String getMediumSizedImage(){ return mediumSizedImage;}
+
+    public void setMediumSizedImage(String mediumSizedImage){ this.mediumSizedImage=mediumSizedImage; }
 
     public String getImg() {
         return img;

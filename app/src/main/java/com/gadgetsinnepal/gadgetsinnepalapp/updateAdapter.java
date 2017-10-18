@@ -7,8 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.wang.avi.AVLoadingIndicatorView;
+
 import java.util.ArrayList;
 
 //THIS CLASS UPDATES THE RECYCLER VIEW
@@ -24,7 +29,10 @@ public class updateAdapter{
     private ArrayList<sItem> list= new ArrayList<>();
     private LinearLayoutManager manager;
     private ProgressBar progressBar;
-
+    //private ProgressBar MainProgressBar;
+    private AVLoadingIndicatorView MainProgressBar;
+    private Button retryButton;
+    private TextView errorMessage;
     //CONSTRUCTOR FOR updateAdapter
     public updateAdapter(RecyclerView recyclerView, final Context context, String url, LinearLayoutManager manager, View rootview){
         this.context=context;
@@ -32,6 +40,11 @@ public class updateAdapter{
         fetch=new FetchWpApi(url,context);
         this.manager=manager;
         progressBar=(ProgressBar)rootview.findViewById(R.id.progress);
+//        MainProgressBar=(ProgressBar)rootview.findViewById(R.id.MainProgress);
+        MainProgressBar=(AVLoadingIndicatorView) rootview.findViewById(R.id.MainProgress);
+
+        retryButton=(Button)rootview.findViewById(R.id.retryButton);
+        errorMessage=(TextView)rootview.findViewById(R.id.errorMessage);
     }
 
     public void fetchAndPut()
@@ -51,10 +64,14 @@ public class updateAdapter{
                         recyclerView.getAdapter().notifyDataSetChanged();
                         recyclerView.getAdapter().notifyItemRangeChanged(0, recyclerView.getAdapter().getItemCount());
                     }
+                    MainProgressBar.setVisibility(View.GONE);
                 }
                 @Override
                 public void onFail(String msg) {
-                    Toast.makeText(context, "FAILED PRIMARY LOAD", Toast.LENGTH_LONG).show();
+                        MainProgressBar.setVisibility(View.GONE);
+                        retryButton.setVisibility(View.VISIBLE);
+                        errorMessage.setVisibility(View.VISIBLE);
+
                 }
             });
         }
@@ -64,7 +81,10 @@ public class updateAdapter{
                     @Override public void onItemClick(View view, int position) {
                         Intent intent= new Intent(context,articleScrolling.class);
                         intent.putExtra("title",list.get(position).title);
-                        intent.putExtra("imgurl",list.get(position).img);
+                        //intent.putExtra("imgurl",list.get(position).img);
+                        //To use the medium sized image instead of the thumbnail
+                        intent.putExtra("imgurl",list.get(position).mediumSizedImage);
+
                         intent.putExtra("content",list.get(position).content);
                         intent.putExtra("link",list.get(position).link);
                         intent.putExtra("date",list.get(position).date);
@@ -118,7 +138,7 @@ public class updateAdapter{
                                 @Override
                                 public void onFail(String msg){
                                     progressBar.setVisibility(View.GONE);
-                                    Toast.makeText(context,"FAILED ONLOAD",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context,"Unable to load more content",Toast.LENGTH_LONG).show();
                                 }
                             });
                         }

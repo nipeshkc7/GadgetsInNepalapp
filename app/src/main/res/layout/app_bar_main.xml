@@ -37,7 +37,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="16dp"
         app:srcCompat="@android:drawable/ic_menu_search" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+
+        android:alpha="0.9"
+        app:menu="@menu/tabbed_navigation"
+        />
 
 </android.support.design.widget.CoordinatorLayout>

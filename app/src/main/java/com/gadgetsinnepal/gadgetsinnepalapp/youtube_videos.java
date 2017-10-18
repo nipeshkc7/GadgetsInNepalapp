@@ -1,27 +1,20 @@
 package com.gadgetsinnepal.gadgetsinnepalapp;
 
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
@@ -30,31 +23,39 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class grid_videos_list extends AppCompatActivity {
-    GridView gridView;
 
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class youtube_videos extends Fragment {
+
+    private GridView gridView;
+    public youtube_videos() {
+        // Required empty public constructor
+    }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grid_videos_list);
-        gridView = (GridView) findViewById(R.id.activity_grid_videos_list);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootview=inflater.inflate(R.layout.fragment_youtube_videos, container, false);
+        gridView = (GridView) rootview.findViewById(R.id.grid_videos_list);
 
-        fetchYoutubeData(new videoCallback() {
+        fetchYoutubeData(new grid_videos_list.videoCallback() {
             @Override
             public void onSuccess(final ArrayList<video_items> list) {
                 //set the list into the adapter here
 
                 Log.d("LISTSIZE","is"+list.size());
-                gridView.setAdapter(new ImageAdapter(getApplicationContext(), list));
+                gridView.setAdapter(new ImageAdapter(getContext(), list));
                 gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> parent, View v,
                                             int position, long id) {
-                      Intent video_intent= new Intent(getApplicationContext(),videos.class);
+                        Intent video_intent= new Intent(getContext(),videos.class);
                         video_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         video_intent.putExtra("videoId",(list.get(position)).id);
-                        getApplicationContext().startActivity(video_intent);
+                        getContext().startActivity(video_intent);
 
                     }
                 });
@@ -67,12 +68,10 @@ public class grid_videos_list extends AppCompatActivity {
             }
         });
 
-
-
-
+        return rootview;
     }
 
-    public void fetchYoutubeData(final videoCallback onvideoCallback){
+    public void fetchYoutubeData(final grid_videos_list.videoCallback onvideoCallback){
         String request_url="https://www.googleapis.com/youtube/v3/search?key=AIzaSyCx4JBH-heN_MDS-Gxc2HspQb7cS5nLow8&channelId=UCjcKULZUBw62jQwjT31XWFQ&part=snippet,id&order=date&maxResults=20&type=video";
         final ArrayList<video_items> list=new ArrayList<>();
         JsonObjectRequest jsArrayRequest = new JsonObjectRequest
@@ -82,15 +81,14 @@ public class grid_videos_list extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
 
-
                             JSONArray jsonArray=response.getJSONArray("items");
 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 video_items videoItems = new video_items();
                                 JSONObject item = (JSONObject) jsonArray.get(i);
                                 JSONObject idObject=item.getJSONObject("id");
-                                    String videoID=idObject.getString("videoId");
-                                    Log.d("VideoId", videoID);
+                                String videoID=idObject.getString("videoId");
+                                Log.d("VideoId", videoID);
                                 JSONObject snippet=item.getJSONObject("snippet");
                                 String title=snippet.getString("title");
                                 String thumbnail=snippet.getJSONObject("thumbnails").getJSONObject("medium").getString("url");
@@ -108,7 +106,7 @@ public class grid_videos_list extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(),
+                            Toast.makeText(getContext(),
                                     "Error: " + e.getMessage(),
                                     Toast.LENGTH_LONG).show();
                         }
@@ -118,16 +116,16 @@ public class grid_videos_list extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO Auto-generated method stub
-                        Toast.makeText(getApplicationContext(),
+                        Toast.makeText(getContext(),
                                 "Cannot connect",
                                 Toast.LENGTH_LONG).show();
 
                     }
                 });
-      //  jsArrayRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
-      //          DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-      //          DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsArrayRequest);
+        //  jsArrayRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
+        //          DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+        //          DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsArrayRequest);
 
 
     }
@@ -136,5 +134,6 @@ public class grid_videos_list extends AppCompatActivity {
         void onSuccess(ArrayList<video_items> list);
         void onFail(String msg);
     }
+
 
 }

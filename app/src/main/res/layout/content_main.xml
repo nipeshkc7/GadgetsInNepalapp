@@ -13,12 +13,5 @@
     tools:context="com.gadgetsinnepal.gadgetsinnepalapp.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:id="@+id/progressBar4"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

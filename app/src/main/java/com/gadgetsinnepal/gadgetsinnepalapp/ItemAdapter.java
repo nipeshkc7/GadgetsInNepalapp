@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
@@ -33,6 +34,7 @@ import java.util.Date;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
+    private int MAX_CACHE_SIZE=1024 * 1024 * 20;
     private Context context;
     private ArrayList<sItem> ItemList;
 
@@ -46,7 +48,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.w("ItemAdapter","createdviewholder");
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.from(parent.getContext()).inflate(R.layout.final_card, parent, false);
+        View view = inflater.from(parent.getContext()).inflate(R.layout.alternative_card_layout, parent, false);
         ItemViewHolder itemViewHolder = new ItemViewHolder(view);
 
         return itemViewHolder;
@@ -57,6 +59,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
         sItem item = ItemList.get(position);
+        int maxSize = MAX_CACHE_SIZE;
+
         Picasso.with(context)
                 .load(item.img)
                 .placeholder(R.drawable.ggg)

@@ -1,11 +1,12 @@
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingTop="?android:attr/actionBarSize"
-        tools:context="com.gadgetsinnepal.gadgetsinnepalapp.homeFragment">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize"
+    tools:context="com.gadgetsinnepal.gadgetsinnepalapp.homeFragment">
+
 
         <android.support.v7.widget.RecyclerView
             android:scrollbars="vertical"
@@ -13,6 +14,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
+
+        <!--<ProgressBar-->
+            <!--android:id="@+id/MainProgress"-->
+            <!--style="?android:attr/progressBarStyleLarge"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="26dp"-->
+            <!--/>-->
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/MainProgress"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center|fill_vertical"
+            android:visibility="gone"
+            app:indicatorName="BallPulseIndicator"
+            app:indicatorColor="@color/colorAccent"
+            android:layout_marginTop="20dp"
+            />
+
 
         <ProgressBar
             style="?android:attr/progressBarStyleSmall"
@@ -22,4 +42,33 @@
             android:layout_gravity="center|bottom"
             android:visibility="gone"
             />
+
+
+        <TextView
+            android:id="@+id/errorMessage"
+            android:layout_width="241dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="We were unable to connect you to the GadgetsInNepal Server Please press the button to refresh"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginTop="40dp"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="100dp"
+            android:visibility="gone"
+            />
+
+
+
+
     </FrameLayout>

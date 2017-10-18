@@ -4,6 +4,8 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -30,8 +32,10 @@ public class MainActivity extends AppCompatActivity
 
    // android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
     String Tag=null;
-    String PrevTag=null;
-    String Title="GadgetsInNepal App";
+    String PrevTag="home";  //used to be null; may cause error
+    String ArticleTabTag="home";
+    String Title="GadgetsInNepal";
+    String CurrentNavDrawerTitle=Title;
     Fragment frag=null;
     int checked_item = 0;
     String search_placeholder = "";
@@ -50,11 +54,16 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        /*Initializing Nav Drawer*/
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+        /*Initializing Bottom Nav tab*/
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+//Creating a home layout fragment
         Tag="home";
         frag=getSupportFragmentManager().findFragmentByTag("home");
         Bundle args=new Bundle();
@@ -65,6 +74,15 @@ public class MainActivity extends AppCompatActivity
         ft.commit();
         PrevTag=Tag;
         navigationView.setCheckedItem(R.id.nav_home);
+
+        //For testing new home layout
+//        Tag="home";
+//        frag=getSupportFragmentManager().findFragmentByTag("home");
+//        frag=new latest_staggered_list();
+//        ft.add(R.id.fragment_container,frag,Tag);
+//        ft.commit();
+//        PrevTag=Tag;
+//        navigationView.setCheckedItem(R.id.nav_home);
 
 
 
@@ -254,6 +272,8 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        ArticleTabTag= PrevTag;
+        CurrentNavDrawerTitle= Title;
         return true;
     }
 
@@ -298,6 +318,95 @@ public class MainActivity extends AppCompatActivity
 
         return -1;
     }
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            android.support.v4.app.FragmentTransaction ft=getSupportFragmentManager().beginTransaction();
+            switch (item.getItemId()) {
+                case R.id.nav_hom:
+                    Title=CurrentNavDrawerTitle;
+                    Log.w("Home","clicked");
+                    frag = getSupportFragmentManager().findFragmentByTag(ArticleTabTag);
+                    ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                    Log.w("HidingFragment",getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                    Log.w("ShowingFragment",getSupportFragmentManager().findFragmentByTag(ArticleTabTag).getTag());
+
+                    ft.show(frag);
+                    ft.commit();
+                    PrevTag = ArticleTabTag;
+                    getSupportActionBar().setTitle(Title);
+
+                    return true;
+                case R.id.nav_vids:
+                    Title="Videos";
+                    Tag="videos";
+                    frag = getSupportFragmentManager().findFragmentByTag(Tag);
+
+                    if (frag == null) {
+                        if (getSupportFragmentManager().findFragmentByTag(PrevTag) != null) {
+                            Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                            ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                        }
+                        frag = new youtube_videos();
+                        ft.add(R.id.fragment_container, frag, Tag);
+                        ft.commit();
+                        PrevTag = Tag;
+                    } else {
+                        Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag));
+                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                        ft.show(frag);
+                        ft.commit();
+                        PrevTag = Tag;
+                        //    Toast.makeText(getApplicationContext(), Tag, Toast.LENGTH_SHORT).show();
+                    }
+
+                    Log.w("videos","clicked");
+                    getSupportActionBar().setTitle(Title);
+                    return true;
+                case R.id.nav_sav:
+                    Log.w("save","clicked");
+                  //  return true;
+                //Open up saved articles fragment
+                    Title = "Saved Articles";
+                    Tag = "save";
+                    if(!readFromFile(getApplicationContext()).equals("")) {
+
+                        frag = getSupportFragmentManager().findFragmentByTag(Tag);
+
+                        if (getSupportFragmentManager().findFragmentByTag(PrevTag) != null) {
+                            Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                            ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                        }
+                        frag = new saveFragment();
+                        ft.add(R.id.fragment_container, frag, Tag);
+                        ft.commit();
+                        PrevTag = Tag;
+
+                    }else{
+                        Toast.makeText(getApplicationContext(),"No articles saved",Toast.LENGTH_SHORT).show();
+                        if (getSupportFragmentManager().findFragmentByTag(PrevTag) != null) {
+                            Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+                            ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+                        }
+                        frag = new noSavedArticles();
+                        ft.add(R.id.fragment_container, frag, Tag);
+                        ft.commit();
+                        PrevTag = Tag;
+                    }
+                    getSupportActionBar().setTitle(Title);
+                    return true;
+            }
+
+
+            return false;
+        }
+
+    };
 
 }
 

@@ -3,6 +3,8 @@ package com.gadgetsinnepal.gadgetsinnepalapp;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -26,6 +28,7 @@ public class FetchWpApi {
 
     private String url;
     private Context context;
+
     public FetchWpApi(String url, Context context){
         //CONSTRUCTOR FOR THE CUSTOM CLASS
         this.url=url;
@@ -71,31 +74,37 @@ public class FetchWpApi {
 
                                         try {
                                             JSONObject guilld = nested_response.getJSONObject("guid");
-                                            String featured_img_url = guilld.getString("rendered");
+
+                                            //Full sized image::
+                                            //String featured_img_url = guilld.getString("rendered");
+
+                                            //thumbnail sized image::
+                                            String featured_img_url= nested_response.getJSONObject("media_details").getJSONObject("sizes").getJSONObject("thumbnail").getString("source_url");
+
+                                            //medium sized image
+                                            String mediumSizedImage= nested_response.getJSONObject("media_details").getJSONObject("sizes").getJSONObject("medium").getString("source_url");
+                                            sitem.mediumSizedImage= mediumSizedImage;
                                             sitem.img=featured_img_url;
                                             Log.w("FetchWpApiImage",featured_img_url);
                                             //ASSIGN VALUES TO LIST HERE
 
 
                                             onCallBack.onSuccess(sitem);
-                                            //Toast.makeText(getApplicationContext(), "IMAGE is :"+featured_img_url,Toast.LENGTH_LONG).show();
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
-//                                            Toast.makeText(context,
-//                                                    "Error: " + e.getMessage(),
-//                                                    Toast.LENGTH_LONG).show();
+//
                                         }
                                     }
                                 }, new Response.ErrorListener() {
 
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        Toast.makeText(context,
-                                                "ERROR "+error.getMessage(), Toast.LENGTH_LONG).show();
+//                                        Toast.makeText(context,
+//                                                "Unable to connect. Some error has occured !"+error.getMessage(), Toast.LENGTH_LONG).show();
                                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                                            Toast.makeText(context,"network timeout error",
-                                                    Toast.LENGTH_LONG).show();
+                                         //   Toast.makeText(context,"network timeout error",
+                                          //          Toast.LENGTH_LONG).show();
                                         } else if (error instanceof AuthFailureError) {
                                             //TODO
                                         } else if (error instanceof ServerError) {
@@ -105,11 +114,13 @@ public class FetchWpApi {
                                         } else if (error instanceof ParseError) {
                                             //TODO
                                         }
+
+                                        //onCallBack.onFail("Some Error has occured");
                                     }
                                 });
                                 jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
-                                        30000,
-                                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                        20000,
+                                        10,          //Retry for image 3 times
                                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
                                 MySingleton.getInstance(context).addToRequestQueue(jsonObjReq);
@@ -129,10 +140,12 @@ public class FetchWpApi {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // TODO Auto-generated method stub
+                        onCallBack.onFail("Volley error");
                     }
                 });
-                jsArrayRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+
+                jsArrayRequest.setRetryPolicy(new DefaultRetryPolicy(10000,
+                0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MySingleton.getInstance(context).addToRequestQueue(jsArrayRequest);
         //END OF FETCHING API DATA
