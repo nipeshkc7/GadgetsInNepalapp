@@ -12,7 +12,7 @@
             android:title="@string/tech_news" />
         <item
             android:id="@+id/nav_nepal"
-            android:icon="@android:drawable/btn_star"
+            android:icon="@mipmap/ic_nepal_text"
             android:title="@string/nepal" />
         <item
             android:id="@+id/nav_mobile"
