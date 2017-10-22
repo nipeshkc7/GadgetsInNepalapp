@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,15 +30,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by Sauharda Chhetri on 1/19/2017.
- */
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     private int MAX_CACHE_SIZE=1024 * 1024 * 20;
     private Context context;
     private ArrayList<sItem> ItemList;
+    private int lastPosition=-1;
 
     public ItemAdapter(Context context, ArrayList<sItem> ItemList) {
         this.context = context;
@@ -48,7 +48,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Log.w("ItemAdapter","createdviewholder");
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.from(parent.getContext()).inflate(R.layout.alternative_card_layout, parent, false);
+        View view = inflater.from(parent.getContext()).inflate(R.layout.final_card, parent, false);
         ItemViewHolder itemViewHolder = new ItemViewHolder(view);
 
         return itemViewHolder;
@@ -77,6 +77,20 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.tvText.setText(result);
 
         holder.dateText.setText(dateCalculator(item.date));
+
+        setAnimation(holder.itemView, position);
+
+    }
+
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(context, R.animator.slide_up);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
 

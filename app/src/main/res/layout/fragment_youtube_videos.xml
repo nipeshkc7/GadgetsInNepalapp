@@ -2,11 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize"
     tools:context="com.gadgetsinnepal.gadgetsinnepalapp.youtube_videos">
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/grid_videos_list"
-        android:layout_marginTop="60dp"
         android:numColumns="2"
         android:gravity="center"
         android:columnWidth="100dp"

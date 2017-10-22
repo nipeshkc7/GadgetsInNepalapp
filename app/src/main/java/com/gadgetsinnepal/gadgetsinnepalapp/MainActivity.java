@@ -188,55 +188,55 @@ public class MainActivity extends AppCompatActivity
                 Tag="pclaptops";
                 url=getResources().getText(R.string.gadgets_posts_url)+"?categories="+getResources().getText(R.string.pc_category)+"&&page=";
                 break;
-
-            case R.id.nav_save:
-                //Open up saved articles fragment
-                Title = "Saved Articles";
-                Tag = "save";
-                if(!readFromFile(getApplicationContext()).equals("")) {
-
-                    frag = getSupportFragmentManager().findFragmentByTag(Tag);
-
-                    if (getSupportFragmentManager().findFragmentByTag(PrevTag) != null) {
-                        Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
-                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    }
-                    frag = new saveFragment();
-                    ft.add(R.id.fragment_container, frag, Tag);
-                    ft.commit();
-                    PrevTag = Tag;
-
-                }else{
-                    Toast.makeText(getApplicationContext(),"No articles saved",Toast.LENGTH_SHORT).show();
-                    if (getSupportFragmentManager().findFragmentByTag(PrevTag) != null) {
-                        Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
-                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
-                    }
-                    frag = new noSavedArticles();
-                    ft.add(R.id.fragment_container, frag, Tag);
-                    ft.commit();
-                    PrevTag = Tag;
-                }
-                break;
-
-            case R.id.nav_videos:
-                Intent video_intent= new Intent(getApplicationContext(),grid_videos_list.class);
-                video_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(video_intent);
-                break;
-
-            //NEED TO ADD LINK TO THE APP
-            case R.id.nav_share:
-
-                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                    sharingIntent.setType("text/plain");
-                    String shareBodyText = "Check out GadgetsInNepal's app\n" + "<LINK HERE>";
-                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject here");
-                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
-                    sharingIntent.putExtra(android.content.Intent.EXTRA_EMAIL, shareBodyText);
-                    startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
-
-                break;
+//
+//            case R.id.nav_save:
+//                //Open up saved articles fragment
+//                Title = "Saved Articles";
+//                Tag = "save";
+//                if(!readFromFile(getApplicationContext()).equals("")) {
+//
+//                    frag = getSupportFragmentManager().findFragmentByTag(Tag);
+//
+//                    if (getSupportFragmentManager().findFragmentByTag(PrevTag) != null) {
+//                        Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+//                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+//                    }
+//                    frag = new saveFragment();
+//                    ft.add(R.id.fragment_container, frag, Tag);
+//                    ft.commit();
+//                    PrevTag = Tag;
+//
+//                }else{
+//                    Toast.makeText(getApplicationContext(),"No articles saved",Toast.LENGTH_SHORT).show();
+//                    if (getSupportFragmentManager().findFragmentByTag(PrevTag) != null) {
+//                        Log.w("HIDING", ":fragmentWithTag" + getSupportFragmentManager().findFragmentByTag(PrevTag).getTag());
+//                        ft.hide(getSupportFragmentManager().findFragmentByTag(PrevTag));
+//                    }
+//                    frag = new noSavedArticles();
+//                    ft.add(R.id.fragment_container, frag, Tag);
+//                    ft.commit();
+//                    PrevTag = Tag;
+//                }
+//                break;
+//
+//            case R.id.nav_videos:
+//                Intent video_intent= new Intent(getApplicationContext(),grid_videos_list.class);
+//                video_intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                getApplicationContext().startActivity(video_intent);
+//                break;
+//
+//            //NEED TO ADD LINK TO THE APP
+//            case R.id.nav_share:
+//
+//                    Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//                    sharingIntent.setType("text/plain");
+//                    String shareBodyText = "Check out GadgetsInNepal's app\n" + "<LINK HERE>";
+//                    sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject here");
+//                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBodyText);
+//                    sharingIntent.putExtra(android.content.Intent.EXTRA_EMAIL, shareBodyText);
+//                    startActivity(Intent.createChooser(sharingIntent, "Sharing Option"));
+//
+//                break;
 
             default:
                 break;
@@ -277,6 +277,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    // Code to retreive saved articles
     private String readFromFile(Context context) {
 
         String ret = "";

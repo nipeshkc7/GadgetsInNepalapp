@@ -33,29 +33,29 @@
 
     </group>
 
-    <item android:title="@string/others">
+    <!--<item android:title="@string/others">-->
 
-        <menu>
-            <group android:checkableBehavior="single">
-            <item
-                android:id="@+id/nav_save"
-                android:icon="@android:drawable/ic_menu_save"
-                android:title="@string/saved_articles" />
-                <item
-                    android:id="@+id/nav_videos"
-                    android:icon="@android:drawable/btn_star"
-                    android:title="@string/videos" />
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/send" />
-            </group>
-        </menu>
+        <!--<menu>-->
+            <!--<group android:checkableBehavior="single">-->
+            <!--<item-->
+                <!--android:id="@+id/nav_save"-->
+                <!--android:icon="@android:drawable/ic_menu_save"-->
+                <!--android:title="@string/saved_articles" />-->
+                <!--<item-->
+                    <!--android:id="@+id/nav_videos"-->
+                    <!--android:icon="@android:drawable/btn_star"-->
+                    <!--android:title="@string/videos" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_share"-->
+                <!--android:icon="@drawable/ic_menu_share"-->
+                <!--android:title="@string/share" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="@string/send" />-->
+            <!--</group>-->
+        <!--</menu>-->
 
-    </item>
+    <!--</item>-->
 
 </menu>

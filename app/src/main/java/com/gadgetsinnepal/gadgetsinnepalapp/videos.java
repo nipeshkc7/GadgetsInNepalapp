@@ -28,6 +28,7 @@ public class videos extends YouTubeBaseActivity implements YouTubePlayer.OnIniti
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getLayoutInflater().setFactory(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videos);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -43,7 +44,6 @@ public class videos extends YouTubeBaseActivity implements YouTubePlayer.OnIniti
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
         youTubePlayer.setPlayerStateChangeListener(playerStateChangeListener);
         youTubePlayer.setPlaybackEventListener(playbackEventListener);
-        Toast.makeText(this,"INITIALIZED",Toast.LENGTH_LONG).show();
         if(!b){
             youTubePlayer.loadVideo(VIDEO_ID);
             //youTubePlayer.cueVideo(VIDEO_ID);
@@ -52,7 +52,7 @@ public class videos extends YouTubeBaseActivity implements YouTubePlayer.OnIniti
 
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-        Toast.makeText(this,"Failed initialization"+youTubeInitializationResult,Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"Failed to load video"+youTubeInitializationResult,Toast.LENGTH_LONG).show();
     }
 
     private YouTubePlayer.PlaybackEventListener playbackEventListener=new YouTubePlayer.PlaybackEventListener() {
